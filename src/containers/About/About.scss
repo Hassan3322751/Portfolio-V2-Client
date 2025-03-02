@@ -6,7 +6,6 @@
 
 .app__about-context {
   width: 100%;
-  // height: fit-content;
   flex: 1;
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -15,7 +14,7 @@
   padding: 1rem;
 
   @media screen and (max-width: 1000px) {
-    width: 80%;
+    width: 100%;
     flex-direction: column;
   }
 }
