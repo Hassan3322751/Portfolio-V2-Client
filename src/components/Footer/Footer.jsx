@@ -1,120 +1,48 @@
 import React from "react";
-import { BsInstagram } from "react-icons/bs";
-import { GrLinkedinOption } from "react-icons/gr";
-import { FaWhatsapp } from "react-icons/fa";
-import { motion } from "framer-motion";
 
-import "./Footer.scss";
+import { socials } from "../../data/portfolio";
+
+const icons = {
+  LinkedIn: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5M3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.3 0-2.9-1.8-2.9s-2.1 1.4-2.1 2.8V21h-4z" />
+    </svg>
+  ),
+  WhatsApp: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3 3z" />
+      <path d="M9 9c.5 2 2 3.5 4 4l1.2-1.2 2 1-.4 1.6c-3.5.3-7.5-3.7-7.2-7.2l1.6-.4 1 2z" />
+    </svg>
+  ),
+  Instagram: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+    </svg>
+  ),
+};
+
 const Footer = () => {
-  const parentVariant = {
-    view: {
-      opacity: [0, 1],
-      transition: {
-        duration: 0.1,
-        when: "beforeChildren",
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const childSocialVariant = {
-    view: {
-      y: [-300, 0],
-      opacity: [0, 1],
-      transition: {
-        opacity: {
-          duration: 0.6,
-        },
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
-  const childCopyVariant = {
-    view: {
-      y: [-100, 0],
-      opacity: [0, 1],
-      transition: {
-        opacity: {
-          duration: 0.6,
-        },
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
-    <div className="app__flex app__footer">
-      <motion.div
-        className="app__footer-contacts app__flex"
-        variants={parentVariant}
-        whileInView="view"
-      >
-        <motion.div
-          className="app__flex"
-          variants={childSocialVariant}
-          whileInView="view"
-        >
-          <a
-            href="https://www.linkedin.com/in/hassan-raza-a05500285"
-            target="_blank"
-            rel="noreferrer"
-            className="app__flex"
-          >
-            <GrLinkedinOption />
-          </a>
-        </motion.div>
-        <motion.div
-          className="app__flex"
-          variants={childSocialVariant}
-          whileInView="view"
-        >
-          <a
-            href="https://wa.me/923095899751"
-            target="_blank"
-            rel="noreferrer"
-            className="app__flex"
-          >
-            <FaWhatsapp />
-          </a>
-        </motion.div>
-        <motion.div
-          className="app__flex"
-          variants={childSocialVariant}
-          whileInView="view"
-        >
-          <a
-            href="https://www.instagram.com/mianhassan6964"
-            target="_blank"
-            rel="noreferrer"
-            className="app__flex"
-          >
-            <BsInstagram />
-          </a>
-        </motion.div>
-      </motion.div>
-      <motion.div
-        className="app__footer-copyrights"
-        variants={parentVariant}
-        whileInView="view"
-      >
-        <motion.p
-          className="p-text"
-          variants={childCopyVariant}
-          whileInView="view"
-        >
-          &copy; 2025 Hassan Raza
-        </motion.p>
-        <motion.p
-          className="p-text"
-          variants={childCopyVariant}
-          whileInView="view"
-        >
-          ALL RIGHTS RESERVED
-        </motion.p>
-      </motion.div>
-    </div>
+    <footer className="site-footer">
+      <div className="wrap">
+        <span>© 2026 Hassan Raza. All rights reserved.</span>
+        <div className="socials">
+          {socials.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={social.label}
+            >
+              {icons[social.label]}
+            </a>
+          ))}
+        </div>
+      </div>
+    </footer>
   );
 };
 

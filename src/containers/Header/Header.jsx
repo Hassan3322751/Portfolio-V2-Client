@@ -1,118 +1,94 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { useTypewriter, Cursor } from "react-simple-typewriter";
+import React, { useEffect, useState } from "react";
 
-import { AppWrap } from "../../wrapper";
-import { images } from "../../constants";
-import "./Header.scss";
-
-// const scaleVariants = {
-//   whileInView: {
-//     scale: [0, 1],
-//     opacity: [0, 1],
-//   },
-//   transition: {
-//     duration: 0.5,
-//     ease: "easeInOut",
-//   },
-// };
-
-const headerSkillVariants = {
-  visible: {
-    rotate: [-120, 0],
-    y: -10,
-    x: 10,
-    transition: {
-      rotate: { repeat: Infinity, repeatType: 'mirror', duration: 2, ease: "easeOut" },
-      y: {
-        repeat: Infinity,
-        repeatType: "reverse",
-        duration: 2,
-        ease: "easeOut",
-      },
-      x: {
-        repeat: Infinity,
-        repeatType: "mirror",
-        duration: 5,
-        ease: "easeOut",
-      },
-    },
-  },
-  hover: {
-    boxShadow: "0 0 20px rgba(0,0,0,0.2)",
-  },
-};
+import { client } from "../../client";
+import { heroChips, RESUME_URL } from "../../data/portfolio";
 
 const Header = () => {
-  const { text: tagText } = useTypewriter({
-    words: ["Fullstack Developer", "ReactJS Developer", "MERN STACK"],
-    typeSpeed: 100,
-    loop: false,
-  });
+  const [resumeUrl, setResumeUrl] = useState(RESUME_URL);
+
+  useEffect(() => {
+    const query = `*[_type == "aboutme"][0]{ "resumeUrl": resume.asset->url }`;
+    client
+      .fetch(query)
+      .then((data) => {
+        if (data?.resumeUrl) setResumeUrl(data.resumeUrl);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
-    <div className="app__header app__flex">
-      <motion.div
-        whileInView={{ x: [-100, 0], opacity: [0, 1] }}
-        transition={{ duration: 0.5 }}
-        className="app__header-info"
-      >
-        <div className="app__header-badge">
-          <div className="badge-cmp app__flex">
-            <span>👋</span>
-            <div style={{ marginLeft: 20 }}>
-              <p className="p-text">Hello, I am</p>
-              <p className="head-text">Hassan</p>
-            </div>
+    <section className="hero" id="home">
+      <div className="wrap">
+        <div className="stage" aria-hidden="true">
+          <div className="ring r2" />
+          <div className="ring r1" />
+          <div className="avatar">
+            <img
+              src="https://cdn.sanity.io/images/emwcwzek/production/c3777237f7ae362b06b2c27008a4d61c45a13438-880x880.png?rect=0,0,863,706&w=600"
+              alt=""
+            />
           </div>
-          <div className="tag-cmp app__flex">
-            <p className="p-text">{tagText}</p>
-            <Cursor cursorStyle="|" />
-            {/* <p className="p-text">Enthusiast</p> */}
+          {heroChips.map((chip) => (
+            <div className={`chip ${chip.className}`} key={chip.className}>
+              <img src={chip.src} alt="" />
+            </div>
+          ))}
+        </div>
+        <span className="status">
+          <i />
+          Available for new projects
+        </span>
+        <h1>
+          Hi, I'm Hassan — I build <span className="grad">Shopware plugins</span>{" "}
+          &amp; real-time web apps
+        </h1>
+        <p className="lead">
+          Full-stack and Shopware 6 developer crafting scalable, secure,
+          user-friendly products with React, Next.js, Node.js and Symfony.
+        </p>
+        <div className="ctas">
+          <a className="btn btn-primary" href="#work">
+            View my work
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+          <a
+            className="btn btn-ghost"
+            href={resumeUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Download résumé
+          </a>
+        </div>
+        <div className="stats">
+          <div>
+            <b>4+</b>
+            <span>Years building</span>
+          </div>
+          <div>
+            <b>15</b>
+            <span>Projects shipped</span>
+          </div>
+          <div>
+            <b>3</b>
+            <span>Shopware plugins</span>
           </div>
         </div>
-      </motion.div>
-
-      <motion.div
-        whileInView={{ opacity: [0, 1] }}
-        transition={{ duration: 0.5, delayChildren: 0.5 }}
-        className="app__header-img"
-      >
-        <motion.img
-          src={images.programmer}
-          alt="profile_bg"
-          whileInView={{ y: [-100, 0] }}
-        />
-        <motion.img
-          whileInView={{ scale: [0, 1] }}
-          transition={{ duration: 1, ease: "easeInOut" }}
-          src={images.circle}
-          alt="profile-circle"
-          className="overlay_circle"
-        />
-      </motion.div>
-      <motion.div
-        // variants={scaleVariants}
-        // whileInView={scaleVariants.whileInView}
-        className="app__header-circles"
-      >
-        {[images.javascript, images.react, images.node].map((circle, index) => (
-          <motion.div
-            variants={headerSkillVariants}
-            whileInView="visible"
-            whileHover="hover"
-            drag
-            dragConstraints={{ left: 10, right: 10, top: 10, bottom: 10 }}
-            dragElastic={0.1}
-            className="circle-cmp app__flex"
-            key={`circle-${index}`}
-          >
-            <img src={circle} alt="circle" />
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
+      </div>
+    </section>
   );
 };
 
-export default AppWrap(Header, "home");
+export default Header;

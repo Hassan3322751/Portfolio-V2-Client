@@ -1,96 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 
-import { images } from "../../constants";
-import { client, urlFor } from "../../client";
-import { AppWrap, MotionWrap } from "../../wrapper";
-import "./About.scss";
+import { traits } from "../../data/portfolio";
 
 const About = () => {
-  const [abouts, setAbouts] = useState([]);
-  const [aboutMe, setAboutMe] = useState({});
-
-  useEffect(() => {
-    const aboutsQuery = '*[_type == "abouts"]';
-    const aboutMeQuery = `*[_type == "aboutme"][0]{
-      profileImg,
-     description,
-     "resumeUrl": resume.asset -> url 
-    }`;
-    client.fetch(aboutsQuery).then((data) => {
-      setAbouts(data);
-    });
-    client.fetch(aboutMeQuery).then((data) => {
-      setAboutMe(data);
-      console.log(data)
-    });
-  }, []);
-
-  const viewResumeHandler = () => {
-    window.open(aboutMe.resumeUrl, "_blank");
-  };
-
   return (
-    <>
-      <h2 className="head-text">
-        I know that <span>Good Design</span>
-        <br />
-        means <span>Good Business</span>
-      </h2>
-
-      <div className="app__about-context app__flex">
-        <div className="app__about-img app__flex">
-          <div className="app__flex">
-            <img
-              src={
-                aboutMe.profileImg
-                  ? urlFor(aboutMe.profileImg)
-                  : images.aboutmine
-              }
-              alt="Profile"
-            />
-          </div>
+    <section id="about">
+      <div className="wrap">
+        <div className="head rv">
+          <span className="eyebrow">About me</span>
+          <h2>
+            Good design means <span className="grad">good business</span>
+          </h2>
         </div>
-        <div className="app__about-data app__flex">
-          <h2 className="head-text">About Me</h2>
-          <p
-            className="p-text"
-            dangerouslySetInnerHTML={{ __html: aboutMe.description }}
-          ></p>
-          <div>
-            <button className="portfolio-button" onClick={viewResumeHandler}>
-              Resume
-            </button>
-          </div>
+        <p className="about-text rv">
+          I'm Hassan Raza, a full-stack web and Shopware 6 developer. I turn
+          ideas into fast, reliable products, from storefront plugins and
+          payment integrations to real-time platforms built on queues and
+          sockets.
+        </p>
+        <div className="about-grid">
+          {traits.map((trait) => (
+            <article className="trait rv" key={trait.title}>
+              <div className="pic">
+                <img src={trait.image} alt={trait.alt} />
+              </div>
+              <h3>{trait.title}</h3>
+              <p>{trait.text}</p>
+            </article>
+          ))}
         </div>
       </div>
-
-      <div className="app__profiles">
-        {abouts.map((about, index) => (
-          <motion.div
-            whileInView={{ opacity: 1 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 1.1 }}
-            transition={{ duration: 0.2, type: "tween" }}
-            className="app__profile-item"
-            key={about.title + index}
-          >
-            <img src={urlFor(about.imgUrl)} alt={about.title} />
-            <h2 className="bold-text" style={{ marginTop: "20px" }}>
-              {about.title}
-            </h2>
-            <h2 className="p-text" style={{ marginTop: "10px" }}>
-              {about.description}
-            </h2>
-          </motion.div>
-        ))}
-      </div>
-    </>
+    </section>
   );
 };
 
-export default AppWrap(
-  MotionWrap(About, "app__about"),
-  "about",
-  "app__whitebg"
-);
+export default About;

@@ -1,85 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { HiMenuAlt4, HiX } from "react-icons/hi";
-import { motion } from "framer-motion";
-
-import "./Navbar.scss";
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
+  { href: "#skills", label: "Skills" },
+  { href: "#testimonials", label: "Reviews" },
+];
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(true);
-  const [classFloat, setClassFloat] = useState("");
-  const [active, setActive] = useState("");
-
-  useEffect(() => {
-    window.addEventListener("scroll", stickNavBar);
-
-    return () => {
-      window.removeEventListener("scroll", stickNavBar);
-    };
-  }, []);
-
-  const stickNavBar = () => {
-    if (window !== undefined) {
-      let windowHeight = window.scrollY;
-      if (windowHeight > 250) {
-        setClassFloat("navbar-float");
-      } else {
-        setClassFloat("");
-      }
-    }
-  };
+  const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
-    <nav className={`app__navbar ${classFloat}`}>
-      <div className="app__navbar-logo">
-        {/* <img src="/logo.png" alt="" srcset="" /> */}
-        <h2>HASSAN</h2>
-      </div>
-      <ul className="app__navbar-links">
-        {["home", "about", "work", "skills", "testimonials", "contact"].map(
-          (item) => (
-            <li
-              key={`link-${item}`}
-              className={`app__flex p-text ${active === item ? "active" : ""}`}
-            >
-              <a href={`#${item}`} onClick={() => setActive(item)}>
-                {item}
+    <header className="nav">
+      <div className="wrap">
+        <div className="bar">
+          <a className="logo" href="#home" onClick={close}>
+            Hassan<span>.</span>
+          </a>
+          <nav className={`links ${open ? "open" : ""}`} aria-label="Main">
+            {links.map((link) => (
+              <a key={link.href} href={link.href} onClick={close}>
+                {link.label}
               </a>
-            </li>
-          )
-        )}
-      </ul>
-
-      <div className="app__navbar-menu">
-        <HiMenuAlt4 onClick={() => setToggle(true)} />
-        {toggle && (
-          // <>
-          <motion.div
-            whileInView={{ x: [200, 0] }}
-            transition={{ duration: 0.75, ease: "easeOut" }}
-          >
-            <HiX onClick={() => setToggle(false)} />
-            <ul>
-              {[
-                "home",
-                "about",
-                "work",
-                "skills",
-                "testimonials",
-                "contact",
-              ].map((item) => (
-                <li key={item}>
-                  <a href={`#${item}`} onClick={() => setToggle(false)}>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            {/* </> */}
-          </motion.div>
-        )}
+            ))}
+          </nav>
+          <div className="nav-actions">
+            <button
+              type="button"
+              className="nav-toggle"
+              aria-expanded={open}
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((value) => !value)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+            <a className="btn btn-primary btn-sm" href="#contact" onClick={close}>
+              Let's talk
+            </a>
+          </div>
+        </div>
       </div>
-    </nav>
+    </header>
   );
 };
 
