@@ -5,6 +5,11 @@ import avatarBlackrobe from "../assets/avatars/blackrobe.jpg";
 import avatarBetwizard from "../assets/avatars/betwizard.jpg";
 import avatarDigitalClads from "../assets/avatars/digital-clads.jpg";
 import avatarCrecent from "../assets/avatars/crecent.jpg";
+import reactLogo from "../assets/react.png";
+import traitShop from "../assets/traits/shop.jpg";
+import traitRealtime from "../assets/traits/realtime.jpg";
+import traitStack from "../assets/traits/stack.jpg";
+import traitPuzzle from "../assets/traits/puzzle.jpg";
 
 export const RESUME_URL =
   "https://cdn.sanity.io/files/emwcwzek/production/3cb1a1d003174ab3add86815f033b2db8adec951.pdf";
@@ -16,7 +21,7 @@ export const heroChips = [
   },
   {
     className: "c2",
-    src: "https://hassan.bytescaffold.com/static/media/react.81ed438b18e24116794d.png",
+    src: reactLogo,
   },
   {
     className: "c3",
@@ -38,32 +43,28 @@ export const heroChips = [
 
 export const traits = [
   {
-    title: "Tech Enthusiast",
-    text: "Exploring new technology across Android, AI and image processing.",
-    image:
-      "https://cdn.sanity.io/images/emwcwzek/production/4ebd7fc98f0c6158323c6490047eae4f26b2dc67-1000x1000.png?w=500",
-    alt: "Robot illustration",
+    title: "Shopware plugins",
+    text: "Storefront features, payments, and the admin screens around them.",
+    image: traitShop,
+    alt: "A shop display with a glowing card",
   },
   {
-    title: "Visionary",
-    text: "Leads with clear goals, recovers fast and learns from every setback.",
-    image:
-      "https://cdn.sanity.io/images/emwcwzek/production/ba733a6ba601770990755990c72b052a62f57cbc-626x626.jpg?w=500",
-    alt: "Team reaching a summit",
+    title: "Real-time systems",
+    text: "Queues, sockets, and dashboards that stay in sync.",
+    image: traitRealtime,
+    alt: "An abstract live dashboard",
   },
   {
-    title: "Full-Stack Developer",
-    text: "MERN stack, React, Node.js, MongoDB and RESTful APIs.",
-    image:
-      "https://cdn.sanity.io/images/emwcwzek/production/bd5cbf6bbdc10e8243467595a6ee6f6e44ceb5fd-1600x1200.jpg?w=500",
-    alt: "Developer at work",
+    title: "Full-stack",
+    text: "React, Next.js, Node.js, and Symfony, from the page to the API.",
+    image: traitStack,
+    alt: "A laptop on a tidy desk",
   },
   {
-    title: "Problem Solver",
-    text: "Analytical, creative and always up for a hard puzzle.",
-    image:
-      "https://cdn.sanity.io/images/emwcwzek/production/3dfa9ab583dffbb72fdffb5c74b06b6649f2a99b-626x626.png?w=500",
-    alt: "Problem solving illustration",
+    title: "Problem solver",
+    text: "I stay with the awkward bug until the product actually works.",
+    image: traitPuzzle,
+    alt: "Puzzle pieces fitting together",
   },
 ];
 
@@ -240,7 +241,7 @@ export const skills = [
   },
   {
     name: "React",
-    src: "https://hassan.bytescaffold.com/static/media/react.81ed438b18e24116794d.png",
+    src: reactLogo,
   },
   {
     name: "Next.js",
