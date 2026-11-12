@@ -4,10 +4,12 @@ const NavigationDots = ({ active }) => {
   return (
     <div className="app__navigation">
       {["home", "about", "work", "skills", "testimonials", "contact"].map(
-        (item, index) => (
-          <a href={`#${item}`}
-            key={item + index}
+        (item) => (
+          <a
+            href={`#${item}`}
+            key={item}
             className="app__navigation-dot"
+            aria-label={item}
             style={active === item ? { backgroundColor: "#313BAC" } : {}}
           />
         )
