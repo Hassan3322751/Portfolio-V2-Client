@@ -39,8 +39,9 @@ const Header = () => {
           Available for new projects
         </span>
         <h1>
-          Hi, I'm Hassan — I build <span className="grad">Shopware plugins</span>{" "}
-          &amp; real-time web apps
+          Hi, I'm Hassan. I build{" "}
+          <span className="grad">real-time web apps</span> &amp; Shopware
+          plugins
         </h1>
         <p className="lead">
           Full-stack and Shopware 6 developer crafting scalable, secure,
@@ -78,11 +79,11 @@ const Header = () => {
             <span>Years building</span>
           </div>
           <div>
-            <b>15</b>
+            <b>25+</b>
             <span>Projects shipped</span>
           </div>
           <div>
-            <b>3</b>
+            <b>10+</b>
             <span>Shopware plugins</span>
           </div>
         </div>
